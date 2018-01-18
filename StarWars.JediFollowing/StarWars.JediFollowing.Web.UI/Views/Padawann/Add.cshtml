@@ -1,0 +1,31 @@
+﻿@using StarWars.JediFollowing.Web.UI.Models
+@model Padawann
+
+@{
+    ViewBag.Title = "Ajout d'un padawan";
+}
+
+<div class="jumbotron">
+    <h1>Ajout d'un padawan</h1>
+</div>
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-4">
+            Prénom :
+            @Html.TextBoxFor(item => item.Name)
+        </div>
+        <div class="col-md-4">
+            Niveau :
+            @Html.TextBoxFor(item => item.LevelValue)
+        </div>
+        <div class="col-md-4">
+            Planète :
+            @Html.TextBoxFor(item => item.PlanetName)
+        </div>
+    </div>
+    <div class="row">
+        <input type="submit" value="Ajouter" />
+    </div>
+}

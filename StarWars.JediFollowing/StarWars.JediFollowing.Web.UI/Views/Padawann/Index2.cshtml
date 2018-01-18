@@ -1,0 +1,27 @@
+﻿@using StarWars.JediFollowing.Web.UI.Models
+@model List<Padawann>
+
+@{
+    ViewBag.Title = "Liste des padawans";
+}
+
+<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col-md-4">
+            @item.Name
+        </div>
+        <div class="col-md-4">
+            @item.LevelValue
+        </div>
+        <div class="col-md-4">
+            @item.Planet.Label
+        </div>
+    </div>
+}
