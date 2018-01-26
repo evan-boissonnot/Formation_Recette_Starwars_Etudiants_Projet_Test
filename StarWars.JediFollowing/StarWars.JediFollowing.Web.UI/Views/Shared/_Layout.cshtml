@@ -7,7 +7,8 @@
     <title>@ViewBag.Title - Star wars, suivi des padawans</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <script src="https://d3js.org/d3.v4.min.js" async></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js" type="text/javascript"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -24,8 +25,10 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Accueil", "Index", "Home")</li>
                     <li>@Html.ActionLink("Ajout paddawan", "Add", "Padawann")</li>
+                    <li>@Html.ActionLink("Ajout Note", "Add", "Lesson")</li>
                     <li>@Html.ActionLink("Padawans", "Index", "Padawann")</li>
                     <li>@Html.ActionLink("Padawans (bis)", "Index2", "Padawann")</li>
+                    <li>@Html.ActionLink("Reporting", "Index", "Report")</li>
                 </ul>
             </div>
         </div>

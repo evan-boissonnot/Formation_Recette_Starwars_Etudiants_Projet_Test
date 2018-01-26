@@ -25,7 +25,8 @@ namespace StarWars.JediFollowing.Web.UI.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Planet> Planet { get; set; }
+        public virtual DbSet<Lesson> Lesson { get; set; }
         public virtual DbSet<Padawann> Padawann { get; set; }
+        public virtual DbSet<Planet> Planet { get; set; }
     }
 }

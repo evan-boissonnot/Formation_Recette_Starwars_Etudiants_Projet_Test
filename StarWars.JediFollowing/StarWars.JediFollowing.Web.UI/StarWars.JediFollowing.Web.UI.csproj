@@ -150,7 +150,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LessonController.cs" />
     <Compile Include="Controllers\PadawannController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\ReportingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -169,6 +171,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Context.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Lesson.cs">
+      <DependentUpon>Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Padawann.cs">
       <DependentUpon>Context.tt</DependentUpon>
@@ -236,6 +241,8 @@
     <Content Include="Views\Padawann\Add.cshtml" />
     <Content Include="Views\Padawann\Index.cshtml" />
     <Content Include="Views\Padawann\Index2.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\Lesson\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

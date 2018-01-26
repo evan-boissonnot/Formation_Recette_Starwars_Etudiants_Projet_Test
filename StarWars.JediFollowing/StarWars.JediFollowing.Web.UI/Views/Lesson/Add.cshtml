@@ -1,0 +1,32 @@
+﻿@using StarWars.JediFollowing.Web.UI.Models
+@model Lesson
+
+@{
+    ViewBag.Title = "Ajout d'un résulat de leçon";
+    List<Padawann> padawanList = this.ViewBag.PadawanList;
+}
+
+<div class="jumbotron">
+    <h1>Ajout d'un résultat de leçon</h1>
+</div>
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-4">
+            Padawan :
+            @Html.DropDownListFor(item => item.PadawannId, padawanList.Select(pad => new SelectListItem() { Text = pad.Name, Value = pad.Id.ToString() }))
+        </div>
+        <div class="col-md-4">
+            Nom du cours :
+            @Html.TextBoxFor(item => item.LessonLabel)
+        </div>
+        <div class="col-md-4">
+            Note :
+            @Html.TextBoxFor(item => item.Value)
+        </div>
+    </div>
+    <div class="row">
+        <input type="submit" value="Ajouter" />
+    </div>
+}

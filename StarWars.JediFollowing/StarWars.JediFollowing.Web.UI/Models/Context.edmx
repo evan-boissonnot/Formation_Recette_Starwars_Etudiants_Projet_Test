@@ -5,24 +5,47 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="StarWars.DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Padawann">
+        <EntityType Name="Lesson">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="PlanetId" Type="numeric" Precision="18" Scale="0" />
-          <Property Name="LevelValue" Type="int" Nullable="false" />
+          <Property Name="PadawannId" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="LessonDate" Type="datetime" Nullable="false" />
+          <Property Name="Value" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="LessonLabel" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Padawann">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PlanetId" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LevelValue" Type="int" />
         </EntityType>
         <EntityType Name="Planet">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Label" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Label" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Lesson_Padawann">
+          <End Role="Padawann" Type="Self.Padawann" Multiplicity="1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Padawann">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="PadawannId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Padawann_Planet">
-          <End Role="Planet" Type="Self.Planet" Multiplicity="0..1" />
+          <End Role="Planet" Type="Self.Planet" Multiplicity="1" />
           <End Role="Padawann" Type="Self.Padawann" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Planet">
@@ -34,8 +57,13 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="StarWarsDatabaseModelStoreContainer">
+          <EntitySet Name="Lesson" EntityType="Self.Lesson" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Padawann" EntityType="Self.Padawann" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Planet" EntityType="Self.Planet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Lesson_Padawann" Association="Self.FK_Lesson_Padawann">
+            <End Role="Padawann" EntitySet="Padawann" />
+            <End Role="Lesson" EntitySet="Lesson" />
+          </AssociationSet>
           <AssociationSet Name="FK_Padawann_Planet" Association="Self.FK_Padawann_Planet">
             <End Role="Planet" EntitySet="Planet" />
             <End Role="Padawann" EntitySet="Padawann" />
@@ -45,34 +73,64 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="StarWars.DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Planet">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Label" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Padawann" Relationship="StarWars.DatabaseModel.FK_Padawann_Planet" FromRole="Planet" ToRole="Padawann" />
-        </EntityType>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Planet" EntityType="Self.Planet" />
+          <EntitySet Name="Lesson" EntityType="StarWars.DatabaseModel.Lesson" />
           <EntitySet Name="Padawann" EntityType="StarWars.DatabaseModel.Padawann" />
+          <EntitySet Name="Planet" EntityType="StarWars.DatabaseModel.Planet" />
+          <AssociationSet Name="FK_Lesson_Padawann" Association="StarWars.DatabaseModel.FK_Lesson_Padawann">
+            <End Role="Padawann" EntitySet="Padawann" />
+            <End Role="Lesson" EntitySet="Lesson" />
+          </AssociationSet>
           <AssociationSet Name="FK_Padawann_Planet" Association="StarWars.DatabaseModel.FK_Padawann_Planet">
             <End Role="Planet" EntitySet="Planet" />
             <End Role="Padawann" EntitySet="Padawann" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Padawann">
+        <EntityType Name="Lesson">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="PlanetId" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="LevelValue" Type="Int32" Nullable="false" />
+          <Property Name="PadawannId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LessonDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Value" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Padawann" Relationship="StarWars.DatabaseModel.FK_Lesson_Padawann" FromRole="Lesson" ToRole="Padawann" />
+          <Property Name="LessonLabel" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Padawann">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PlanetId" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LevelValue" Type="Int32" />
+          <NavigationProperty Name="Lesson" Relationship="StarWars.DatabaseModel.FK_Lesson_Padawann" FromRole="Padawann" ToRole="Lesson" />
           <NavigationProperty Name="Planet" Relationship="StarWars.DatabaseModel.FK_Padawann_Planet" FromRole="Padawann" ToRole="Planet" />
         </EntityType>
+        <EntityType Name="Planet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Label" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Padawann" Relationship="StarWars.DatabaseModel.FK_Padawann_Planet" FromRole="Planet" ToRole="Padawann" />
+        </EntityType>
+        <Association Name="FK_Lesson_Padawann">
+          <End Type="StarWars.DatabaseModel.Padawann" Role="Padawann" Multiplicity="1" />
+          <End Type="StarWars.DatabaseModel.Lesson" Role="Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Padawann">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="PadawannId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Padawann_Planet">
-          <End Type="StarWars.DatabaseModel.Planet" Role="Planet" Multiplicity="0..1" />
+          <End Type="StarWars.DatabaseModel.Planet" Role="Planet" Multiplicity="1" />
           <End Type="StarWars.DatabaseModel.Padawann" Role="Padawann" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Planet">
@@ -83,17 +141,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="StarWarsDatabaseModelStoreContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="Planet">
-            <EntityTypeMapping TypeName="StarWars.DatabaseModel.Planet">
-              <MappingFragment StoreEntitySet="Planet">
+          <EntitySetMapping Name="Lesson">
+            <EntityTypeMapping TypeName="StarWars.DatabaseModel.Lesson">
+              <MappingFragment StoreEntitySet="Lesson">
+                <ScalarProperty Name="LessonLabel" ColumnName="LessonLabel" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="LessonDate" ColumnName="LessonDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="PadawannId" ColumnName="PadawannId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Label" ColumnName="Label" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -103,6 +165,14 @@
                 <ScalarProperty Name="LevelValue" ColumnName="LevelValue" />
                 <ScalarProperty Name="PlanetId" ColumnName="PlanetId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Planet">
+            <EntityTypeMapping TypeName="StarWars.DatabaseModel.Planet">
+              <MappingFragment StoreEntitySet="Planet">
+                <ScalarProperty Name="Label" ColumnName="Label" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

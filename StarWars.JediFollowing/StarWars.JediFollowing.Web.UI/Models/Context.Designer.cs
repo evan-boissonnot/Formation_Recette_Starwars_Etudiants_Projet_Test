@@ -1,4 +1,4 @@
-﻿// La génération de code T4 est activée pour le modèle 'C:\Users\Evan\Source\Repos\Formation_Recette_Starwars_Etudiants_Projet_Test\StarWars.JediFollowing\StarWars.JediFollowing.Web.UI\Models\Context.edmx'. 
+﻿// La génération de code T4 est activée pour le modèle 'G:\Works\Formations\Formation_Recette_Starwars_Etudiants_Projet_Test\StarWars.JediFollowing\StarWars.JediFollowing.Web.UI\Models\Context.edmx'. 
 // Pour activer la génération de code héritée, définissez la valeur de la propriété
 // du concepteur 'Stratégie de génération de code' sur 'ObjectContext hérité'. Cette propriété est disponible dans la fenêtre Propriétés lorsque le modèle
 //  est ouvert dans le concepteur.

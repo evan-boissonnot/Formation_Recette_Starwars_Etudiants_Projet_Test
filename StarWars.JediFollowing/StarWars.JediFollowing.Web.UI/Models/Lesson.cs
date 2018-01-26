@@ -12,21 +12,15 @@ namespace StarWars.JediFollowing.Web.UI.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Padawann
+    public partial class Lesson
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Padawann()
-        {
-            this.Lesson = new HashSet<Lesson>();
-        }
-    
         public decimal Id { get; set; }
-        public string Name { get; set; }
-        public decimal PlanetId { get; set; }
-        public Nullable<int> LevelValue { get; set; }
+        public decimal PadawannId { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public System.DateTime LessonDate { get; set; }
+        public decimal Value { get; set; }
+        public string LessonLabel { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lesson> Lesson { get; set; }
-        public virtual Planet Planet { get; set; }
+        public virtual Padawann Padawann { get; set; }
     }
 }
