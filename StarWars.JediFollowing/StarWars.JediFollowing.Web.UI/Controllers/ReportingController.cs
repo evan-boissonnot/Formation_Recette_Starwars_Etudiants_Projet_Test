@@ -10,6 +10,21 @@ namespace StarWars.JediFollowing.Web.UI.Controllers
     {
         public ActionResult Index()
         {
+            List<dynamic> items = new List<dynamic>();
+
+            using (Models.Entities context = new Models.Entities())
+            {
+                var query = context.Lesson.GroupBy(item => item.Padawann.Name);
+
+                foreach (var item in query)
+                {
+                    items.Add(new
+                    {
+                        PadawanName = item.Key
+                    });
+                }
+            }
+
             return View();
         }
     }
