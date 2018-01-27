@@ -172,13 +172,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Context.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetPadawanAverage_Result.cs">
+      <DependentUpon>Context.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Lesson.cs">
+      <DependentUpon>Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PadawanAverageResult.cs">
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Padawann.cs">
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Padawann_Partial.cs" />
+    <Compile Include="Models\PadawanReportModel.cs" />
     <Compile Include="Models\Planet.cs">
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
@@ -241,8 +248,9 @@
     <Content Include="Views\Padawann\Add.cshtml" />
     <Content Include="Views\Padawann\Index.cshtml" />
     <Content Include="Views\Padawann\Index2.cshtml" />
-    <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\Reporting\Index.cshtml" />
     <Content Include="Views\Lesson\Add.cshtml" />
+    <Content Include="Views\Reporting\Index2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

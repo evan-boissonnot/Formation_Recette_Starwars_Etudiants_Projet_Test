@@ -5,9 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="e7460330523d49e4b7729fa9c31c052c" Name="Diagram1">
-        <EntityTypeShape EntityType="StarWars.DatabaseModel.Lesson" Width="1.5" PointX="5.25" PointY="0.875" />
-        <EntityTypeShape EntityType="StarWars.DatabaseModel.Padawann" Width="1.5" PointX="3" PointY="0.875" />
-        <EntityTypeShape EntityType="StarWars.DatabaseModel.Planet" Width="1.5" PointX="0.75" PointY="1.25" />
+        <EntityTypeShape EntityType="StarWars.DatabaseModel.Lesson" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="StarWars.DatabaseModel.Padawann" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="StarWars.DatabaseModel.Planet" Width="1.5" PointX="0.75" PointY="1.375" />
         <AssociationConnector Association="StarWars.DatabaseModel.FK_Lesson_Padawann" />
         <AssociationConnector Association="StarWars.DatabaseModel.FK_Padawann_Planet" />
       </Diagram>

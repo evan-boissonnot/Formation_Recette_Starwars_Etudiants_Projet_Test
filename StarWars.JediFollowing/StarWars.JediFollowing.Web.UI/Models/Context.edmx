@@ -20,9 +20,9 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="PlanetId" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlanetId" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="LevelValue" Type="int" />
         </EntityType>
         <EntityType Name="Planet">
@@ -56,6 +56,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetPadawanAverage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="StarWarsDatabaseModelStoreContainer">
           <EntitySet Name="Lesson" EntityType="Self.Lesson" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Padawann" EntityType="Self.Padawann" Schema="dbo" store:Type="Tables" />
@@ -85,6 +86,7 @@
             <End Role="Planet" EntitySet="Planet" />
             <End Role="Padawann" EntitySet="Padawann" />
           </AssociationSet>
+          <FunctionImport Name="GetPadawanAverage" ReturnType="Collection(StarWars.DatabaseModel.PadawanAverageResult)" />
         </EntityContainer>
         <EntityType Name="Lesson">
           <Key>
@@ -95,16 +97,16 @@
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LessonDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Value" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <NavigationProperty Name="Padawann" Relationship="StarWars.DatabaseModel.FK_Lesson_Padawann" FromRole="Lesson" ToRole="Padawann" />
           <Property Name="LessonLabel" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Padawann" Relationship="StarWars.DatabaseModel.FK_Lesson_Padawann" FromRole="Lesson" ToRole="Padawann" />
         </EntityType>
         <EntityType Name="Padawann">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PlanetId" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlanetId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="LevelValue" Type="Int32" />
           <NavigationProperty Name="Lesson" Relationship="StarWars.DatabaseModel.FK_Lesson_Padawann" FromRole="Padawann" ToRole="Lesson" />
           <NavigationProperty Name="Planet" Relationship="StarWars.DatabaseModel.FK_Padawann_Planet" FromRole="Padawann" ToRole="Planet" />
@@ -141,6 +143,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="GetPadawanAverage_Result">
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Column1" Nullable="true" Precision="38" Scale="6" />
+        </ComplexType>
+        <ComplexType Name="PadawanAverageResult">
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Average" Nullable="true" Precision="38" Scale="6" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -177,6 +187,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetPadawanAverage" FunctionName="StarWars.DatabaseModel.Store.GetPadawanAverage">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="StarWars.DatabaseModel.PadawanAverageResult">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Average" ColumnName="Average" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

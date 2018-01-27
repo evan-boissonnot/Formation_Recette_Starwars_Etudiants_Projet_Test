@@ -10,7 +10,7 @@ namespace StarWars.JediFollowing.Web.UI.Controllers
     {
         public ActionResult Index()
         {
-            List<dynamic> items = new List<dynamic>();
+            List<Models.PadawanReportModel> items = new List<Models.PadawanReportModel>();
 
             using (Models.Entities context = new Models.Entities())
             {
@@ -18,14 +18,31 @@ namespace StarWars.JediFollowing.Web.UI.Controllers
 
                 foreach (var item in query)
                 {
-                    items.Add(new
+                    items.Add(new Models.PadawanReportModel
                     {
-                        PadawanName = item.Key
+                        PadawanName = item.Key,
+                        Average = item.Average(lesson => lesson.Value)
                     });
                 }
             }
 
-            return View();
+            return View(items);
+        }
+
+        public ActionResult Index2()
+        {
+            List<Models.PadawanReportModel> items = null;
+
+            using (Models.Entities context = new Models.Entities())
+            {
+                items = context.GetPadawanAverage()
+                               .ToList()
+                               .Select(item => new Models.PadawanReportModel() { PadawanName = item.Name,
+                                                                                 Average = item.Average.GetValueOrDefault(0) })
+                               .ToList();
+            }
+
+            return View(items);
         }
     }
 }

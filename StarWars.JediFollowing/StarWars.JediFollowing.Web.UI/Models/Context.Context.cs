@@ -12,6 +12,8 @@ namespace StarWars.JediFollowing.Web.UI.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class Entities : DbContext
     {
@@ -28,5 +30,10 @@ namespace StarWars.JediFollowing.Web.UI.Models
         public virtual DbSet<Lesson> Lesson { get; set; }
         public virtual DbSet<Padawann> Padawann { get; set; }
         public virtual DbSet<Planet> Planet { get; set; }
+    
+        public virtual ObjectResult<PadawanAverageResult> GetPadawanAverage()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PadawanAverageResult>("GetPadawanAverage");
+        }
     }
 }

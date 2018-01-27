@@ -43,14 +43,16 @@ namespace StarWars.JediFollowing.Web.UI.Controllers
                 Planet planetData = context.Planet.FirstOrDefault(planet => planet.Label == model.PlanetName);
 
                 if (planetData == null)
+                {
                     planetData = new Planet()
                     {
                         Label = model.PlanetName
-                    };
+                    };                    
+                }
+                planetData.Padawann.Add(model);
 
-                model.Planet = planetData;
+                context.Planet.Add(planetData);
 
-                context.Padawann.Add(model);
                 context.SaveChanges();
             }
 
